@@ -7,15 +7,12 @@ type TagFunc[T, U any] func(Func[T, U]) Func[T, U]
 type CombinatorFunc[T, U any] func(CombinatorFunc[T, U]) Func[T, U]
 
 func Y[T, U any](f TagFunc[T, U]) Func[T, U] {
-	return func(self CombinatorFunc[T, U]) Func[T, U] {
+	g := func(self CombinatorFunc[T, U]) Func[T, U] {
 		return f(func(t T) U {
 			return self(self)(t)
 		})
-	}(func(self CombinatorFunc[T, U]) Func[T, U] {
-		return f(func(t T) U {
-			return self(self)(t)
-		})
-	})
+	}
+	return g(g)
 }
 
 func Adapt[T, U any](f TagFunc[T, U], adapters ...TagFunc[T, U]) TagFunc[T, U] {
