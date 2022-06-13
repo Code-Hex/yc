@@ -22,7 +22,7 @@ func BenchmarkFac(b *testing.B) {
 	}
 }
 
-func BenchmarkFibMemo(b *testing.B) {
+func BenchmarkFacMemo(b *testing.B) {
 	fac := yc.Y(yc.Adapt(factorialTag, yc.Memo[int, int]()))
 	for i := 0; i < b.N; i++ {
 		_ = fac(i)
