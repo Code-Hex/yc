@@ -15,17 +15,40 @@ var factorialTag = func(recurse yc.Func[int, int]) yc.Func[int, int] {
 	}
 }
 
+var fibTag = func(recurse yc.Func[int, int]) yc.Func[int, int] {
+	return func(n int) int {
+		if n <= 1 {
+			return n
+		}
+		return recurse(n-1) + recurse(n-2)
+	}
+}
+
 func BenchmarkFac(b *testing.B) {
 	fac := yc.Y(factorialTag)
 	for i := 0; i < b.N; i++ {
-		_ = fac(i)
+		_ = fac(10)
 	}
 }
 
 func BenchmarkFacMemo(b *testing.B) {
 	fac := yc.Y(yc.Adapt(factorialTag, yc.Memo[int, int]()))
 	for i := 0; i < b.N; i++ {
-		_ = fac(i)
+		_ = fac(10)
+	}
+}
+
+func BenchmarkFib(b *testing.B) {
+	fib := yc.Y(fibTag)
+	for i := 0; i < b.N; i++ {
+		_ = fib(10)
+	}
+}
+
+func BenchmarkFibMemo(b *testing.B) {
+	fib := yc.Y(yc.Adapt(fibTag, yc.Memo[int, int]()))
+	for i := 0; i < b.N; i++ {
+		_ = fib(10)
 	}
 }
 

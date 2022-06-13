@@ -36,5 +36,5 @@ $ go test -timeout 30s ./... github.com/Code-Hex/yc
 ## Run benchmark
 
 ```
-$ go test -benchmem -bench ./... github.com/Code-Hex/yc
+$ go test -benchmem -bench . github.com/Code-Hex/yc
 ```
