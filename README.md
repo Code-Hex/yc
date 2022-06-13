@@ -22,7 +22,7 @@ var factorialTag = func(recurse yc.Func[int, int]) yc.Func[int, int] {
 
 func main() {
     fac := yc.Y(yc.Adapt(factorialTag, yc.Memo[int, int](), yc.Trace[int, int]()))
-	got := fac(10)
+    got := fac(10)
     fmt.Println(got) // 3628800
 }
 ```
